@@ -35,4 +35,8 @@ RUN systemctl enable podman.service
 RUN systemctl enable node_exporter.service
 RUN systemctl enable incus.service
 RUN rm -rf /tmp/* /var/*
-RUN ostree container commit
+RUN rm -rf /opt && ln -s /var/opt /opt
+
+CMD ["/sbin/init"]
+
+RUN bootc container lint
