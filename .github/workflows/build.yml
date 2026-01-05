@@ -25,6 +25,21 @@ jobs:
         image_flavor: [nvidia]
         major_version: [42]
     steps:
+    - name: size available before
+      shell: bash
+      run: | 
+            df -h  &&
+            sudo docker image prune --all --force &&
+            sudo podman image prune --all --force &&
+            podman image prune --all --force &&
+            sudo rm -rf /opt/hostedtoolcache/CodeQL &&
+            sudo rm -rf /usr/local/share/boost &&
+            sudo rm -rf $AGENT_TOOLSDIRECTORY &&
+            sudo rm -rf /opt/ghc &&
+            sudo rm -rf /var/cache/apt &&
+            sudo rm -rf /usr/share/dotnet &&
+            sudo rm -rf /usr/local/lib/android &&
+            df -h
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
